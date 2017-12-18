@@ -12,7 +12,7 @@ function getCards(laneId) {
 }
 function onCardDelete(id) {
     const newState = lanes;
-    console.log(newS    tate);
+    console.log(newState);
     lanes = newState.map(newstate => newstate.cards.filter(card => card.id != id));
     return lanes
 }

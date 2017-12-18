@@ -15,7 +15,7 @@ class Card extends Component {
                 <h4 key={this.props.card.id}>{this.props.card.title}</h4>
                 <p>{this.props.card.description}</p>
                 
-                <button onClick={() => this.props.onCardDelete()}>Remove</button>
+                <button onClick={() => this.props.onClick}>Remove</button>
            </div>
         )   
     }

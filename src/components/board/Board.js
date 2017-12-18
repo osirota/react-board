@@ -5,8 +5,8 @@ import BoardService from '../../service/board.service';
 import './Board.css';
 
 class Board extends Component {
-  handleOnDelete() {
-    BoardService.onCardDelete(this.props.id);
+  handleOnDelete(id) {
+    BoardService.onCardDelete(id);
     this.setState({
       lanes: BoardService.getLanes()
     })
@@ -14,7 +14,7 @@ class Board extends Component {
   renderLanes() {
     this.lines = BoardService.getLanes();
     console.log(this.lines)
-    return this.lines.map(line => <Line onCardDelete={BoardService.onCardDelete} key={line.id} line={line}/>)
+    return this.lines.map(line => <Line onClick={this.handleOnDelete} key={line.id} line={line}/>)
   }
   componentDidMount() {
     this.setState({
