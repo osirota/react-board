@@ -1,0 +1,19 @@
+.board-card {
+    width: 90%;
+    margin: 0 auto 10px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 5px;
+}
+.priority1 {
+    background: #fdd;
+}
+.priority2 {
+    background: #ffffe2;
+}
+.priority3 {
+    background: #fff;
+}
+.priority4 {
+    background: #ddd;
+}
