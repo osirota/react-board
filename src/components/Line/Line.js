@@ -5,13 +5,16 @@ import './Line.css';
 
 class Line extends Component {
     renderCards() {
-        const cards = this.props.line.cards;
-        return cards.map(card => <Card onClick={this.props.onClick} key={card.id} card={card} />)
+        const {cards, id} = this.props.line;
+        return cards.map(card => <Card onClick={() => this.props.onClick(card.id, id)} key={card.id} card={card} />)
     }
     render() {
         return (
             <div className='board-row'>
-                <h2 className='board-title' key={this.props.line.id}>{this.props.line.title}</h2>
+                <div className='board-header'>
+                    <h2 className='board-title' key={this.props.line.id}>{this.props.line.title}</h2>
+                    <span>{this.props.count(this.props.line.id)}</span>
+                </div>
                 {this.renderCards()}
             </div>
         );

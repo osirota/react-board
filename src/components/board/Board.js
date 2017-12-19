@@ -5,21 +5,22 @@ import BoardService from '../../service/board.service';
 import './Board.css';
 
 class Board extends Component {
-  handleOnDelete(id) {
-    BoardService.onCardDelete(id);
-    this.setState({
-      lanes: BoardService.getLanes()
-    })
+  constructor(props) {
+    super( props)
+    this.handleOnDelete = this.handleOnDelete.bind(this);
+    this.state = {
+      lines: BoardService.getLanes(),
+    }
+  }
+  handleOnDelete(cardId, lineId) {
+     BoardService.onCardDelete(cardId, lineId);
+     this.setState({lines:BoardService.getLanes()});
+  } 
+  countCards(cardId) {
+    return BoardService.countCards(cardId)
   }
   renderLanes() {
-    this.lines = BoardService.getLanes();
-    console.log(this.lines)
-    return this.lines.map(line => <Line onClick={this.handleOnDelete} key={line.id} line={line}/>)
-  }
-  componentDidMount() {
-    this.setState({
-      lanes: BoardService.onCardDelete()
-    })
+    return this.state.lines.map(line => <Line count={this.countCards} onClick={this.handleOnDelete} key={line.id} line={line}/>)
   }
 
   render() {

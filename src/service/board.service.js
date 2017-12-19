@@ -1,23 +1,28 @@
 import data from '../data'
 
 let lanes = Object.keys(data.lanes).map(item => data.lanes[item]);
-
 function getLanes() {
     return lanes
 }
 
+function countCards(lineId) {
+    let count;
+    lanes.map(line => {
+        if(line.id === lineId) {
+            count = line.cards.length;
+        }
+    });
+    return count
+}
 
-function getCards(laneId) {
-    return lanes[laneId].cards
+
+function onCardDelete(cardId, lineId) {
+    const lane = lanes.find(l => l.id === lineId);
+    lane.cards = lane.cards.filter(c => c.id !== cardId);
 }
-function onCardDelete(id) {
-    const newState = lanes;
-    console.log(newState);
-    lanes = newState.map(newstate => newstate.cards.filter(card => card.id != id));
-    return lanes
-}
+
 export default {
-    getCards,
     getLanes,
-    onCardDelete
+    onCardDelete,
+    countCards
 };

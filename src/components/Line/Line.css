@@ -5,5 +5,12 @@
 }
 .board-title {
     font-size: 13px;
+}
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid #dedede;
+    padding: 5px;
+    margin-bottom: 15px;    
 }
