@@ -5,24 +5,26 @@ function getLanes() {
     return lanes
 }
 
-function countCards(lineId) {
-    let count;
-    lanes.map(line => {
-        if(line.id === lineId) {
-            count = line.cards.length;
-        }
-    });
-    return count
-}
-
-
 function onCardDelete(cardId, lineId) {
     const lane = lanes.find(l => l.id === lineId);
     lane.cards = lane.cards.filter(c => c.id !== cardId);
 }
 
+function addCard(id, title, description, tit) {
+    if(tit === 'Work In Progress (Not Droppable)') {
+        tit = 'Wip'
+    }
+    const lane = lanes.find(l => l.id === id);
+    const pos = lane.cards.length + 1;
+    console.log(tit);
+    lane.cards.push({
+        "id": tit + pos,
+        "title": title,
+        "description": description
+    })
+}
 export default {
     getLanes,
     onCardDelete,
-    countCards
+    addCard
 };

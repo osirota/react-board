@@ -1,0 +1,19 @@
+.add-cards {
+    display: flex;
+    flex-direction: column;
+    padding: 7px;
+    border: 1px solid;
+    width: 90%;
+    margin: 10px auto 0;
+    border-radius: 10px;
+}
+.add-input {
+    padding: 5px;
+    margin-bottom: 10px;
+}
+.add-textarea {
+    padding: 5px;
+    margin-bottom: 10px;
+    height: 100px;
+    resize: none;
+}
