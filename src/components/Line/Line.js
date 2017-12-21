@@ -10,13 +10,16 @@ class Line extends Component {
         this.showAdd = this.showAdd.bind(this);
         this.hideAdd = this.hideAdd.bind(this);
         this.state = {
-            showAddNew: false
+            showAddNew: false,
+            showEdit: false
         }
     }
     renderCards() {
         const {cards, id} = this.props.line;
-        return cards.map(card => <Card onClick={() => this.props.onClick(card.id, id)} key={card.id} card={card} />)
+        return cards.map(card => <Card hideEdit={this.hideEdit} showEdit={this.showEdit} editCard={this.props.editCard}
+                                       onClick={() => this.props.onClick(card.id, id)} key={card.id} card={card} lineId={id} />)
     }
+
     showAdd() {
        this.setState({showAddNew: true});
     }
@@ -35,7 +38,7 @@ class Line extends Component {
 
 
 
-                {this.state.showAddNew && <AddCard addNewCard={this.props.addNewCard} line={this.props.line} hideAdd={this.hideAdd}/>}
+                {this.state.showAddNew && <AddCard addNewCard={this.props.addNewCard} line={this.props.line}  hideAdd={this.hideAdd}/>}
             </div>
         );
     }

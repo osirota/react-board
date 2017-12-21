@@ -9,6 +9,7 @@ class Board extends Component {
     super( props);
     this.handleOnDelete = this.handleOnDelete.bind(this);
     this.addNewCard = this.addNewCard.bind(this);
+    this.editCard = this.editCard.bind(this);
     this.state = {
       lines: BoardService.getLanes()
     }
@@ -17,12 +18,16 @@ class Board extends Component {
      BoardService.onCardDelete(cardId, lineId);
      this.setState({lines:BoardService.getLanes()});
   }
+  editCard(lineId, cardId, title, description, oldCard) {
+      BoardService.editCard(lineId, cardId, title, description, oldCard);
+      this.setState({lines:BoardService.getLanes()});
+  }
   addNewCard(id, title, desctiption, tit) {
       BoardService.addCard(id, title, desctiption, tit);
       this.setState({lines:BoardService.getLanes()});
   }
   renderLanes() {
-    return this.state.lines.map(line => <Line addNewCard={this.addNewCard} onClick={this.handleOnDelete} key={line.id} line={line}/>)
+    return this.state.lines.map(line => <Line addNewCard={this.addNewCard} editCard={this.editCard} onClick={this.handleOnDelete} key={line.id} line={line}/>)
   }
 
   render() {

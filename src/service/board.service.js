@@ -16,15 +16,25 @@ function addCard(id, title, description, tit) {
     }
     const lane = lanes.find(l => l.id === id);
     const pos = lane.cards.length + 1;
-    console.log(tit);
     lane.cards.push({
         "id": tit + pos,
         "title": title,
         "description": description
     })
 }
+
+function editCard(lineId, cardId, title, description, oldCard) {
+    const lane = lanes.find(l => l.id === lineId);
+    lane.cards = lane.cards.map(c => {
+        if(c.id === cardId) {
+            return Object.assign({},oldCard, {"title": title,"description": description});
+        } else return c
+    });
+}
+
 export default {
     getLanes,
     onCardDelete,
+    editCard,
     addCard
 };

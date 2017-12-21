@@ -32,10 +32,11 @@ class AddCard extends Component {
                     className='add-textarea'
                     value={this.state.description}
                     onChange={this.descriptionChange}
-                    placeholder='Description'></textarea>
+                    placeholder='Description'>
+                </textarea>
                 <button onClick={() => {
-                    this.props.hideAdd(); this.props.addNewCard(this.props.line.id, this.state.title, this.state.description, this.props.line.title)
-                }}>Submit</button>
+                this.props.hideAdd(); this.props.addNewCard(this.props.line.id, this.state.title, this.state.description, this.props.line.title)
+            }}>Submit</button>
             </div>
         );
     }

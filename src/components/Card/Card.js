@@ -1,17 +1,33 @@
 import React, { Component } from 'react';
+import EditCard from '../EditCard/EditCard'
+
 import './Card.css';
 
-
-
 class Card extends Component {
+    constructor(props) {
+        super( props);
+        this.showEdit = this.showEdit.bind(this);
+        this.hideEdit = this.hideEdit.bind(this);
+        this.state = {
+            showEdit: false
+        }
+    }
+    showEdit() {
+        this.setState({showEdit: true});
+    }
+    hideEdit() {
+        this.setState({showEdit: false});
+    }
     render() {
     const priority = 'priority' + this.props.card.priority;
         return (
            <div className={['board-card', priority].join(' ')}>
-                <h4 key={this.props.card.id}>{this.props.card.title}</h4>
-                <p>{this.props.card.description}</p>
-                
+               {!this.state.showEdit && <h4 key={this.props.card.id}>{this.props.card.title}</h4>}
+               {!this.state.showEdit && <p>{this.props.card.description}</p>}
+
+               {this.state.showEdit && <EditCard lineId={this.props.lineId} hideEdit={this.hideEdit} editCard={this.props.editCard} card={this.props.card}/>}
                 <button onClick={this.props.onClick}>Remove</button>
+                <button onClick={this.showEdit}>Edit</button>
            </div>
         )   
     }
