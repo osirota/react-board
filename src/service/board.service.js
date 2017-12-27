@@ -12,7 +12,7 @@ function onCardDelete(cardId, lineId) {
 
 function addCard(id, title, description, tit) {
     if(tit === 'Work In Progress (Not Droppable)') {
-        tit = 'Wip'
+        tit = 'Wip';
     }
     const lane = lanes.find(l => l.id === id);
     const pos = lane.cards.length + 1;
@@ -32,9 +32,33 @@ function editCard(lineId, cardId, title, description, oldCard) {
     });
 }
 
+function searchCard(cardTitle) {
+    const lane = lanes.find(l =>  l.cards.find(c => c.title.indexOf(cardTitle) > -1 ));
+    return lane.cards.filter(c => c.title.indexOf(cardTitle) > -1 );
+}
+
+function reorder(startList, startIndex, endList,endIndex) {
+    let remove;
+    const lane = lanes.map(l => {
+        if(l.id === startList) {
+            remove = l.cards.splice(startIndex, 1);
+        }
+        return l;
+    });
+    return lane.map(l => {
+       if(l.id === endList) {
+            l.cards.splice(endIndex,0,remove['0'])
+       }
+       return l
+    });
+
+}
+
 export default {
     getLanes,
     onCardDelete,
     editCard,
+    searchCard,
+    reorder,
     addCard
 };

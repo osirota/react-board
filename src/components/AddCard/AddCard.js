@@ -10,14 +10,12 @@ class AddCard extends Component {
             description: ''
         };
 
-        this.titleChange = this.titleChange.bind(this);
-        this.descriptionChange = this.descriptionChange.bind(this);
     }
 
-    titleChange(event) {
+    titleChange = (event) => {
         this.setState({title: event.target.value});
     }
-    descriptionChange(event) {
+    descriptionChange = (event) => {
         this.setState({description: event.target.value});
     }
     render() {
@@ -42,3 +40,5 @@ class AddCard extends Component {
     }
 }
 export default AddCard;
+
+
