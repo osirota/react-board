@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Line from '../Line/Line';
 import BoardService from '../../service/board.service';
 import Search from '../Search/Search'
@@ -12,11 +13,14 @@ class Board extends Component {
 
 
     this.state = {
-      lines: BoardService.getLanes(),
       searchCard: '',
       search: false
     }
 
+  }
+  componentDidMount() {
+    const lines = BoardService.getLanes();
+    this.props.linesLoaded(lines)
   }
   handleOnDelete = (cardId, lineId) => {
      BoardService.onCardDelete(cardId, lineId);
@@ -28,7 +32,7 @@ class Board extends Component {
   };
   addNewCard = (id, title, desctiption, tit) => {
       BoardService.addCard(id, title, desctiption, tit);
-      this.setState({lines:BoardService.getLanes()});
+      this.setState({ lines:BoardService.getLanes() });
   };
   searchCard = (cardTitle) => {
       this.setState({searchCard: BoardService.searchCard(cardTitle)});
@@ -41,7 +45,7 @@ class Board extends Component {
   };
   renderLanes = () => {
 
-    return this.state.lines.map(line => <Line addNewCard={this.addNewCard} editCard={this.editCard} onClick={this.handleOnDelete} key={line.id} line={line}/>)
+    return this.props.lines.map(line => <Line addNewCard={this.addNewCard} editCard={this.editCard} onClick={this.handleOnDelete} key={line.id} line={line}/>)
   };
 
   onDragEnd = (result) => {
@@ -80,4 +84,22 @@ class Board extends Component {
   }
 }
 
-export default Board;
+const mapStateToProps = (state) => {
+    console.log('state', state)
+    return {
+        lines: state.todo.lanes
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        linesLoaded: (lines) => {
+            dispatch({
+                type: 'LINES_LOADED',
+                payload: lines 
+            })
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board);
